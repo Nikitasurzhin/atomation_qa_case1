@@ -1,5 +1,7 @@
 import random
 
+from selenium.webdriver.common.by import By
+
 from generator.generator import generated_person
 from locators.elements_page_locators import TextBoxPageLocators, CheckBoxPageLocators, RadioButtonPageLocators, \
     WebTablePageLocators
@@ -115,6 +117,7 @@ class WebTablePage(BasePage):
         self.element_is_visible(self.locators.SEARCH_INPUT).send_keys(key_word)
 
     def check_search_person(self):
-        delete_button = self.element_is_present(self.locators.DELETE_BUTTON)
-        row = delete_button.find_element(self.locators.ROW_PARENT)
+        delete_button = self.element_is_present(self.locators.DELETE_BUTTON, timeout=0)
+        # row = delete_button.find_element(self.locators.ROW_PARENT)
+        row = delete_button.find_element(by=By.XPATH, value="//div[@class='rt-tr-group']")
         return row.text.splitlines()
